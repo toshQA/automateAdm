@@ -1,0 +1,74 @@
+import org.junit.Assert;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
+
+public class MainPageTest {
+    private WebDriver driver;
+    private MainPage mainPage;
+
+    @BeforeEach
+    public void setUp() {
+        System.setProperty("webdriver.chrome.driver", "D:\\Admitad\\automateAdm\\drivers\\chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
+        driver.get("https://test.stage.wp.admitad.com/");
+        mainPage = new MainPage(driver);
+    }
+
+    @Test
+    public void openWebmasterPageFromHeaderNav(){
+        WebmasterPage webmasterPage = mainPage.clickHeaderNavTabWebmaster();
+        String url = webmasterPage.getUrl();
+        Assert.assertTrue(url.contains("site/webmaster/"));
+    }
+
+    @Test
+    public void openAdvertiserPageFromHeaderNav(){
+        AdvertiserPage advertiserPage = mainPage.clickHeaderNavTabAdvertiser();
+        String url = advertiserPage.getUrl();
+        Assert.assertTrue(url.contains("site/advertiser/"));
+    }
+
+    @Test
+    public void openWebmasterPageFromInfoSection(){
+        WebmasterPage webmasterPage = mainPage.clickInfoSectionPublishersButton();
+        String url = webmasterPage.getUrl();
+        Assert.assertTrue(url.contains("site/webmaster/"));
+    }
+
+    @Test
+    public void openAdvertiserPageFromInfoSection(){
+        AdvertiserPage advertiserPage = mainPage.clickInfoSectionAdvertisersButton();
+        String url = advertiserPage.getUrl();
+        Assert.assertTrue(url.contains("site/advertiser/"));
+    }
+
+    @Test
+    public void openCompliancePageFromComplianceSection(){
+        ComlpiancePage comlpiancePage = mainPage.clickComplianceSectionPublishersButton();
+        String url = comlpiancePage.getUrl();
+        Assert.assertTrue(url.contains("site/webmaster/compliance"));
+    }
+
+    @Test
+    public void openBrandSafetyPageFromComplianceSection(){
+        BrandSafetyPage brandSafetyPage = mainPage.clickComplianceSectionAdvertisersButton();
+        String url = brandSafetyPage.getUrl();
+        Assert.assertTrue(url.contains("site/advertiser/brand-safety/"));
+    }
+
+
+
+
+    @AfterEach
+    public void tearDown() {
+        driver.quit();
+    }
+
+}
