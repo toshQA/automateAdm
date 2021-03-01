@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +18,7 @@ public class MainPageTest {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get("https://test.stage.wp.admitad.com/");
+        driver.get("https://test.stage.wp.admitad.com/en/site");
         mainPage = new MainPage(driver);
     }
 
@@ -63,6 +64,16 @@ public class MainPageTest {
         Assert.assertTrue(url.contains("site/advertiser/brand-safety/"));
     }
 
+    @Test
+    public void openReviewMegababosPageFromSuccessStroiesSection() {
+        ReviewMegababosPage reviewMegababosPage = mainPage.clickSuccessStoriesSectionWebmastersCard();
+        if(mainPage.clickSuccessStoriesSectionWebmastersCard() != null) {
+            String url = reviewMegababosPage.getUrl();
+            Assert.assertTrue(url.contains("site/webmaster/reviews/kejs-veb-mastera-megababos-komanda-arbitrazhnikov-trafika/"));
+        } else {
+            Assert.assertNull(reviewMegababosPage);
+        }
+    }
 
 
 

@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -22,6 +23,9 @@ public class MainPage {
     private By infoSectionAdvertisersButton = By.xpath("//section[@class='homepage_recipients']//div[contains(@class, 'homepage_recipientsCol')][2]/a");
     private By complianceSectionPublishersButton = By.xpath("//section[contains(@class, 'homepage_compliance')]//article[1]/a");
     private By complianceSectionAdvertisersButton = By.xpath("//section[contains(@class, 'homepage_compliance')]//article[2]/a");
+    private By successStoriesSection = By.xpath("//section[contains(@class, 'homepage_stories')]");
+    private By successStoriesSectionPublishersCard = By.xpath("//section[contains(@class, 'homepage_stories')]/div/div/div[2]/article");
+    private By successStoriesSectionAdvertisersCard = By.xpath("//section[contains(@class, 'homepage_compliance')]//article[2]/a");
 
     public WebmasterPage clickHeaderNavTabWebmaster() {
         driver.findElement(headerNavTabWebmaster).click();
@@ -44,15 +48,29 @@ public class MainPage {
     }
 
     public ComlpiancePage clickComplianceSectionPublishersButton() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(complianceSectionPublishersButton));
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        driver.findElement(complianceSectionPublishersButton);
+        jse.executeScript("window.scrollBy(0,2500)");
         driver.findElement(complianceSectionPublishersButton).click();
         return new ComlpiancePage(driver);
     }
 
     public BrandSafetyPage clickComplianceSectionAdvertisersButton() {
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        driver.findElement(complianceSectionAdvertisersButton);
+        jse.executeScript("window.scrollBy(0,2500)");
         driver.findElement(complianceSectionAdvertisersButton).click();
         return new BrandSafetyPage(driver);
+    }
+
+    public ReviewMegababosPage clickSuccessStoriesSectionWebmastersCard() {
+
+        if(!driver.findElements(successStoriesSection).isEmpty()) {
+            driver.findElement(successStoriesSectionPublishersCard).click();
+            return new ReviewMegababosPage(driver);
+        }
+        return null;
+
     }
 
 
