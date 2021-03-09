@@ -18,7 +18,7 @@ public class MainPageTest {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get("https://test.stage.wp.admitad.com/en/site");
+        driver.get("https://test.stage.wp.admitad.com/");
         mainPage = new MainPage(driver);
     }
 
@@ -65,9 +65,9 @@ public class MainPageTest {
     }
 
     @Test
-    public void openReviewMegababosPageFromSuccessStroiesSection() {
+    public void openReviewMegababosPageFromSuccessStoriesSection() {
         ReviewMegababosPage reviewMegababosPage = mainPage.clickSuccessStoriesSectionWebmastersCard();
-        if(mainPage.clickSuccessStoriesSectionWebmastersCard() != null) {
+        if(reviewMegababosPage != null) {
             String url = reviewMegababosPage.getUrl();
             Assert.assertTrue(url.contains("site/webmaster/reviews/kejs-veb-mastera-megababos-komanda-arbitrazhnikov-trafika/"));
         } else {
@@ -75,7 +75,12 @@ public class MainPageTest {
         }
     }
 
-
+    @Test
+    public void openCompliancePageFromHeaderNav() {
+        ComlpiancePage comlpiancePage = mainPage.clickHeaderNavTabWebmasterCompliance();
+        String url = comlpiancePage.getUrl();
+        Assert.assertTrue(url.contains("site/webmaster/compliance"));
+    }
 
     @AfterEach
     public void tearDown() {
