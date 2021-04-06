@@ -18,7 +18,7 @@ public class MainPageTest {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get("https://test.stage.wp.admitad.com/");
+        driver.get("https://www.admitad.com/");
         mainPage = new MainPage(driver);
     }
 

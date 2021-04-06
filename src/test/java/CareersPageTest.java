@@ -17,7 +17,7 @@ public class CareersPageTest {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-        driver.get("https://test.stage.wp.admitad.com/ru/site/about/careers/");
+        driver.get("https://www.admitad.com/ru/site/about/careers/");
         careersPage = new CareersPage(driver);
     }
 
